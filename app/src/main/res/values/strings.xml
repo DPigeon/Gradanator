@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Assignment1</string>
+    <string name="app_name">Gradanator</string>
+    <string name="action_settings">Edit</string>
 </resources>
