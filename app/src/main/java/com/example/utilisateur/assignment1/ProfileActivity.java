@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/*
+ * Created by David
+ * ProfileActivity Class
+ */
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override

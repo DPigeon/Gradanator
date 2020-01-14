@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/*
+ * Created by David
+ * GradeActivity Class
+ */
+
 public class GradeActivity extends AppCompatActivity {
 
     @Override
