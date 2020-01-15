@@ -17,12 +17,15 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    protected SharedPreferenceHelper sharedPreferenceHelper;
     protected Button profileButton, gradeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
 
         setupUI(profileButton, R.id.profileButton, ProfileActivity.class);
         setupUI(gradeButton, R.id.gradeButton, GradeActivity.class);
@@ -31,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences sharedPreferences = getSharedPreferences("ProfileFile", Context.MODE_PRIVATE); // Create a new file to store
-        String username = sharedPreferences.getString("ProfileName", null); // We get the name of the user
-        if (username == null)
+
+        String profileName = sharedPreferenceHelper.getProfileName();
+        if (profileName == null)
             goToActivity(ProfileActivity.class); // If no name, go to the profile
         else
-            profileButton.setText(username); // Otherwise just set the stored name
+            profileButton.setText(profileName); // Otherwise just set the stored name
     }
 
     protected void setupUI(Button button, int id, final Class page) {
