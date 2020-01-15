@@ -17,21 +17,18 @@ public class SharedPreferenceHelper {
     }
 
     // For the MainActivity
-    public void saveProfileName(String name)  { // Save the profile name (Setter)
+    public void saveProfile(Profile profile)  { // Save the profile (Setter)
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("ProfileName", name);
+        editor.putString("ProfileName", profile.getName());
+        editor.putInt("ProfileAge", profile.getAge());
+        editor.putInt("ProfileId", profile.getId());
         editor.apply(); // Using apply instead of commit now
     }
 
-    public String getProfileName() { // Getter for profile name
-        return sharedPreferences.getString("ProfileName", null);
-    }
-
-    public void saveProfile(Profile profile) { // Setter for the profile object
-
-    }
-
-    public Profile getProfile() { // Getter for the profile object
-        return new Profile("test", 10, 4039493);
+    public Profile getProfile() { // Getter for profile
+        String name = sharedPreferences.getString("ProfileName", null);
+        int age = sharedPreferences.getInt("ProfileAge", 0);
+        int id = sharedPreferences.getInt("ProfileId", 0);
+        return new Profile(name, age, id);
     }
 }

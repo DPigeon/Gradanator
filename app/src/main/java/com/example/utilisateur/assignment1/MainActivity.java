@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        String profileName = sharedPreferenceHelper.getProfileName();
+        String profileName = sharedPreferenceHelper.getProfile().getName();
         if (profileName == null)
             goToActivity(ProfileActivity.class); // If no name, go to the profile
         else
-            profileButton.setText(profileName); // Otherwise just set the stored name
+            profileButton.setHovered(true); // Otherwise just set the stored name
     }
 
     protected void setupUI(Button button, int id, final Class page) {
