@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
 
-        setupUI(profileButton, R.id.profileButton, ProfileActivity.class);
-        setupUI(gradeButton, R.id.gradeButton, GradeActivity.class);
+        setupUI();
     }
 
     @Override
@@ -39,20 +38,28 @@ public class MainActivity extends AppCompatActivity {
         if (profileName == null)
             goToActivity(ProfileActivity.class); // If no name, go to the profile
         else
-            profileButton.setHovered(true); // Otherwise just set the stored name
+            profileButton.setText(profileName); // Otherwise just set the stored name
     }
 
-    protected void setupUI(Button button, int id, final Class page) {
-        button = findViewById(id);
-        button.setOnClickListener(new View.OnClickListener() {
+    void setupUI() {
+        profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToActivity(page);
+                goToActivity(ProfileActivity.class);
+            }
+        });
+
+        gradeButton = findViewById(R.id.gradeButton);
+        gradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToActivity(GradeActivity.class);
             }
         });
     }
 
-    protected void goToActivity(Class page) {
+    void goToActivity(Class page) {
         Intent intent = new Intent(MainActivity.this, page); // from the main activity to the profile class
         startActivity(intent);
     }
