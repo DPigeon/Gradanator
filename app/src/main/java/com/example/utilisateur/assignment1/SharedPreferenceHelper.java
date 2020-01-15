@@ -13,6 +13,11 @@ public class SharedPreferenceHelper {
     private SharedPreferences sharedPreferences;
 
     public SharedPreferenceHelper(Context context) { // Constructor
+        // For debugging
+        /*SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();*/
+
         sharedPreferences = context.getSharedPreferences("ProfilePreference", Context.MODE_PRIVATE);
     }
 

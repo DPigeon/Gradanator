@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void setupUI() {
+    protected void setupUI() { // We setup all buttons and textEdits
         nameEditText = findViewById(R.id.nameEditText);
         InputFilter[] FilterArrayName = new InputFilter[1];
         FilterArrayName[0] = new InputFilter.LengthFilter(maxLengthName);
@@ -92,6 +92,9 @@ public class ProfileActivity extends AppCompatActivity {
         if (sharedPreferenceHelper.getProfile() == null) // Info does not exist
             switchMode(true, View.VISIBLE); // Switch to the edit mode
         else {
+            switchMode(false, View.INVISIBLE);
+
+            // Getting the profile and displaying it
             Profile profile = sharedPreferenceHelper.getProfile();
             nameEditText.setText(profile.getName());
             ageEditText.setText(Integer.toString(profile.getAge()));
