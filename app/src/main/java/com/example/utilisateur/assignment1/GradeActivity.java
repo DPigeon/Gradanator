@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /*
  * Created by David
- * GradeActivity Class
+ * GradeActivity Class Child of the MainActivity
  */
 
 public class GradeActivity extends AppCompatActivity {

@@ -1,5 +1,6 @@
 package com.example.utilisateur.assignment1;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 /*
  * Created by David
- * ProfileActivity Class
+ * ProfileActivity Class Child of the MainActivity
  */
 
 public class ProfileActivity extends AppCompatActivity {
@@ -35,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setTextEnabled(false); // We set to not enabled as soon as we open the activity
+        setSavedText();
     }
 
     @Override
@@ -48,8 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuId = item.getItemId();
         if(menuId == R.id.action_settings){ // If we click on the ... button
-            setTextEnabled(true); // Enable
-            saveButton.setVisibility(View.VISIBLE); // Show the button
+            switchMode(true, View.VISIBLE); // Enable
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -77,13 +79,24 @@ public class ProfileActivity extends AppCompatActivity {
         stIdEditText.setFilters(FilterArrayId);
 
         saveButton = findViewById(R.id.saveButton);
-        saveButton.setVisibility(View.INVISIBLE); // Set the save button invisible
     }
 
-    protected void setTextEnabled(boolean enabled) { // Used to make all text editable or not
+    protected void switchMode(boolean enabled, int view) { // Toggle between display mode and edit mode
         nameEditText.setEnabled(enabled);
         ageEditText.setEnabled(enabled);
         stIdEditText.setEnabled(enabled);
+        saveButton.setVisibility(view);
+    }
+
+    protected void setSavedText() {
+        if (sharedPreferenceHelper.getProfile() == null) // Info does not exist
+            switchMode(true, View.VISIBLE); // Switch to the edit mode
+        else {
+            Profile profile = sharedPreferenceHelper.getProfile();
+            nameEditText.setText(profile.getName());
+            ageEditText.setText(Integer.toString(profile.getAge()));
+            stIdEditText.setText(Integer.toString(profile.getId()));
+        }
     }
 
     protected void saveProfile() { // Fields not empty, age must be between 18-99,
@@ -91,8 +104,13 @@ public class ProfileActivity extends AppCompatActivity {
         int age = Integer.parseInt(ageEditText.getText().toString());
         int id = Integer.parseInt(stIdEditText.getText().toString());
 
-        if (nameEditText.length() < 1 || ageEditText.length() < 1 || stIdEditText.length() < 1 || age > 17 && age < 100)
-                sharedPreferenceHelper.saveProfile(new Profile(name, age, id));
+        if (nameEditText.length() < 1 || ageEditText.length() < 1 || stIdEditText.length() < 1 || age > 17 && age < 100) {
+            sharedPreferenceHelper.saveProfile(new Profile(name, age, id)); // We save the profile
+            switchMode(false, View.INVISIBLE); // Switch to the display mode
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Invalid Field(s)!", Toast.LENGTH_LONG); // Current pointer to the add, the string and the length if stays on
+            toast.show(); // We display it
+        }
     }
 
 }

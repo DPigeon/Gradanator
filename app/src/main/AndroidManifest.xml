@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".GradeActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".GradeActivity" android:parentActivityName="com.example.utilisateur.assignment1.MainActivity" />
+        <activity android:name=".ProfileActivity" android:parentActivityName="com.example.utilisateur.assignment1.MainActivity" />
         <activity android:name=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.utilisateur.assignment1.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

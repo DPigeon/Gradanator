@@ -1,5 +1,6 @@
 package com.example.utilisateur.assignment1;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -41,7 +42,14 @@ public class MainActivity extends AppCompatActivity {
             profileButton.setText(profileName); // Otherwise just set the stored name
     }
 
+    protected void setupAction() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+    }
+
     void setupUI() {
+        setupAction();
+
         profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
