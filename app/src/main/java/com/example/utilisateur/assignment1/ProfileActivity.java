@@ -55,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    saveProfile();
+                    readInputs();
                 }
             });
         }
@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (sharedPreferenceHelper.getProfile() == null) // Info does not exist
             switchMode(true, View.VISIBLE); // Switch to the edit mode
         else {
-            switchMode(false, View.INVISIBLE);
+            switchMode(false, View.INVISIBLE); // Switch to display mode
 
             // Getting the profile and displaying it
             Profile profile = sharedPreferenceHelper.getProfile();
@@ -102,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    protected void saveProfile() { // Fields not empty, age must be between 18-99,
+    protected void readInputs() { // Fields not empty, age must be between 18-99,
         // Reading the input from the edit text when the save button is pressed
         String name = nameEditText.getText().toString();
         String ageString = ageEditText.getText().toString();
@@ -115,6 +115,10 @@ public class ProfileActivity extends AppCompatActivity {
         } catch(NumberFormatException ex) {
         }
 
+        validateAndSave(name, ageString, idString, age, id);
+    }
+
+    protected void validateAndSave(String name, String ageString, String idString, int age, int id) {
         if (name.matches(""))
             toastMessage("Your username cannot be empty!");
         else if (ageString.matches(""))
