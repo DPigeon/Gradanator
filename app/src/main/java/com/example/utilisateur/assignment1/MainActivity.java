@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         String profileName = sharedPreferenceHelper.getProfile().getName();
-        if (profileName == null)
+        if (profileName == null || profileName.isEmpty())
             goToActivity(ProfileActivity.class); // If no name, go to the profile
         else
             profileButton.setText(profileName); // Otherwise just set the stored name

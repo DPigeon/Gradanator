@@ -23,7 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected SharedPreferenceHelper sharedPreferenceHelper;
     protected EditText nameEditText, ageEditText, stIdEditText;
     protected Button saveButton;
-    int maxLengthName = 15, maxLengthAge = 2, maxLengthId = 6;
+    int maxLengthName = 15, maxLengthAge = 2, maxLengthId = 6, minAge = 18, maxAge = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,17 +103,35 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     protected void saveProfile() { // Fields not empty, age must be between 18-99,
+        // Reading the input from the edit text when the save button is pressed
         String name = nameEditText.getText().toString();
-        int age = Integer.parseInt(ageEditText.getText().toString());
-        int id = Integer.parseInt(stIdEditText.getText().toString());
+        String ageString = ageEditText.getText().toString();
+        String idString = stIdEditText.getText().toString();
 
-        if (nameEditText.length() < 1 || ageEditText.length() < 1 || stIdEditText.length() < 1 || age > 17 && age < 100) {
+        int age = 0, id = 0;
+        try {
+            age = Integer.parseInt(ageEditText.getText().toString());
+            id = Integer.parseInt(stIdEditText.getText().toString());
+        } catch(NumberFormatException ex) {
+        }
+
+        if (name.matches(""))
+            toastMessage("Your username cannot be empty!");
+        else if (ageString.matches(""))
+            toastMessage("Your age cannot be empty!");
+        else if (idString.matches(""))
+            toastMessage("Your student ID cannot be empty!");
+        else if (age < minAge || age > maxAge)
+            toastMessage("You must be 18 to use this app!");
+        else {
             sharedPreferenceHelper.saveProfile(new Profile(name, age, id)); // We save the profile
             switchMode(false, View.INVISIBLE); // Switch to the display mode
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Invalid Field(s)!", Toast.LENGTH_LONG); // Current pointer to the add, the string and the length if stays on
-            toast.show(); // We display it
         }
+    }
+
+    protected void toastMessage(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG); // Current pointer to the add, the string and the length if stays on
+        toast.show(); // We display it
     }
 
 }
