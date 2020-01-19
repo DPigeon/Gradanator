@@ -24,6 +24,10 @@ public class Assignment {
         return new Assignment(tempTitle, tempGrade);
     }
     //****get methods*****//
-    public String getAssignmentTitle() {return assignmentTitle; }
-    public int getAssignmentGrade() {return assignmentGrade;}
+    public String getAssignmentTitle() {
+        return assignmentTitle;
+    }
+    public int getAssignmentGrade() {
+        return assignmentGrade;
+    }
 }

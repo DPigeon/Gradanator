@@ -130,6 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
         else {
             sharedPreferenceHelper.saveProfile(new Profile(name, age, id)); // We save the profile
             switchMode(false, View.INVISIBLE); // Switch to the display mode
+            toastMessage("Saved!");
         }
     }
 

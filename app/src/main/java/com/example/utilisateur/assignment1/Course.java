@@ -20,11 +20,15 @@ public class Course {
         Random rnd = new Random();
         int assignmentNo = rnd.nextInt(5);
         ArrayList<Assignment> tempAssns = new ArrayList<Assignment>();
-        for(int i=0; i < assignmentNo; i++)
+        for(int i = 0; i < assignmentNo; i++)
             tempAssns.add(Assignment.generateRandomAssignment());
         return new Course("Course " + courseID, tempAssns);
     }
     //****get methods*****//
-    public String getCourseTitle() {return courseTitle;}
-    public ArrayList<Assignment> getAssignments() {return assignments;}
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
+    }
 }
