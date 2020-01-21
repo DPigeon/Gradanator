@@ -3,6 +3,7 @@ package com.example.utilisateur.assignment1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +21,12 @@ import java.util.Random;
  */
 
 public class GradeActivity extends AppCompatActivity {
+    ListView listView;
     ArrayList<Course> courses;
     ArrayList<String> coursesInfo;
     ArrayAdapter adapter;
+    Random rnd;
+    int number;
     int numberOfRandomCourses = 5;
     boolean convertMode;
 
@@ -31,12 +35,11 @@ public class GradeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grade);
 
-        generateCourses();
-
-        // Setting up the list view with its adapter
-        adapter = new ArrayAdapter<String>(this, R.layout.activity_grade, R.id.gradeTextView, coursesInfo);
-        ListView listView = findViewById(R.id.gradeListView);
-        listView.setAdapter(adapter);
+        courses = new ArrayList<Course>();
+        coursesInfo = new ArrayList<String>();
+        generateRandomCourses();
+        displayCourses();
+        instantiateAdapter();
     }
 
     @Override
@@ -51,21 +54,33 @@ public class GradeActivity extends AppCompatActivity {
         if(menuId == R.id.action_settings) { // If we click on the ... button
             // Convert Grades
             convertMode = !convertMode; // Toggling the mode
+
+            coursesInfo.clear(); // Delete all the string courses
+            displayCourses(); // Display then again
+            adapter.notifyDataSetChanged(); // Refresh the list adapter
         }
         return super.onOptionsItemSelected(item);
     }
 
-    protected void generateCourses() {
+    protected void instantiateAdapter() {
+        // Setting up the list view with its adapter
+        adapter = new ArrayAdapter<String>(this, R.layout.activity_grade, R.id.gradeTextView, coursesInfo);
+        listView = findViewById(R.id.gradeListView);
+        listView.setAdapter(adapter);
+    }
+
+    protected void generateRandomCourses() { // Called at the very beginning (onCreate) once
         // Generate a random number of courses
-        courses = new ArrayList<Course>();
-        coursesInfo = new ArrayList<String>();
-        Random rnd = new Random();
-        int number = rnd.nextInt(numberOfRandomCourses) + 1; // Random from 1 to 5
+        rnd = new Random();
+        number = rnd.nextInt(numberOfRandomCourses) + 1; // Random from 1 to 5
 
         for (int i = 0; i < number; i++) {
             Course randomizedCourse = Course.generateRandomCourse();
             courses.add(randomizedCourse);
         }
+    }
+
+    protected void displayCourses() { // Can be called multiple times, used for converting grade refreshness
         for (int i = 0; i < number; i++) {
             ArrayList<Assignment> assignments = courses.get(i).getAssignments();
             String rowString = "Course Title: " + courses.get(i).getCourseTitle() + "\n" +
@@ -81,7 +96,7 @@ public class GradeActivity extends AppCompatActivity {
         for (int i = 0; i < assignments.size(); i++) {
             String title = assignments.get(i).getAssignmentTitle();
             String grade = Integer.toString(assignments.get(i).getAssignmentGrade());
-            info += title + ": " + grade + "\n";
+            info += title + ": " + displayGrade(grade) + "\n";
         }
         return info;
     }
@@ -95,9 +110,19 @@ public class GradeActivity extends AppCompatActivity {
 
         if (assignments.size() != 0) { // Avoiding division by 0
             avg = total / assignments.size();
-            return "\nAverage: " + Double.toString(avg);
+            return "\nAverage: " + displayGrade(Double.toString(avg));
         } else
             return "\nAverage: NaN";
+    }
+
+    protected String displayGrade(String grade) {
+        double doubleGrade = Double.valueOf(grade);
+        String convert = "";
+        if (convertMode)
+            convert = convertGrade(doubleGrade);
+        else
+            convert = grade;
+        return convert; // If no grade
     }
 
     protected String convertGrade(double grade) {
