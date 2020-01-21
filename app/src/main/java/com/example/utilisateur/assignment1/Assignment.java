@@ -19,7 +19,7 @@ public class Assignment {
     //returns an Assignment instance with random values
     static public Assignment generateRandomAssignment() {
         Random rnd = new Random();
-        String tempTitle = "Assignment " + assID;
+        String tempTitle = "Assignment #" + assID;
         int tempGrade = rnd.nextInt(100) + 1;
         return new Assignment(tempTitle, tempGrade);
     }

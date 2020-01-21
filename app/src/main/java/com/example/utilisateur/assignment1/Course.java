@@ -22,7 +22,7 @@ public class Course {
         ArrayList<Assignment> tempAssns = new ArrayList<Assignment>();
         for(int i = 0; i < assignmentNo; i++)
             tempAssns.add(Assignment.generateRandomAssignment());
-        return new Course("Course " + courseID, tempAssns);
+        return new Course("Course #" + courseID, tempAssns);
     }
     //****get methods*****//
     public String getCourseTitle() {
