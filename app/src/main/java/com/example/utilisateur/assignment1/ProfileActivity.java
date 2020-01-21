@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuId = item.getItemId();
-        if(menuId == R.id.action_settings){ // If we click on the ... button
+        if(menuId == R.id.action_settings) { // If we click on the ... button
             switchMode(true, View.VISIBLE); // Enable
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
