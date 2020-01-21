@@ -22,11 +22,11 @@ import java.util.Random;
 
 public class GradeActivity extends AppCompatActivity {
     ListView listView;
-    ArrayList<Course> courses;
-    ArrayList<String> coursesInfo;
+    ArrayList<Course> courses; // Used to generate the random courses
+    ArrayList<String> coursesInfo; // Used to be displayed on the listView
     ArrayAdapter adapter;
     Random rnd;
-    int number;
+    int number; // random number
     int numberOfRandomCourses = 5;
     boolean convertMode;
 
@@ -46,6 +46,14 @@ public class GradeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) { // Creates the three dot action menu
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) { // Used to change the menu's title
+        MenuItem item = menu.findItem(R.id.action_settings);
+        if (item.getTitle().equals("Edit"))
+            item.setTitle("Convert Grades");
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
