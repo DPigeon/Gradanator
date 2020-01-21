@@ -67,7 +67,7 @@ public class GradeActivity extends AppCompatActivity {
     }
 
     protected String calculateAverage(ArrayList<Assignment> assignments) {
-        int total = 0;
+        double total = 0;
         double avg = 0;
         for (int i = 0; i < assignments.size(); i++) {
             total = assignments.get(i).getAssignmentGrade() + total;

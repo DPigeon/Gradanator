@@ -21,8 +21,8 @@
 
     <TextView
         android:id="@+id/gradeTextView"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:padding="10dip"
         android:textSize="16dip"
         android:textStyle="bold"
