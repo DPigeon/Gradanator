@@ -119,12 +119,15 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     protected void validateAndSave(String name, String ageString, String idString, int age, int id) {
+        int idInt = Integer.parseInt(idString);
         if (name.matches(""))
             toastMessage("Your username cannot be empty!");
         else if (ageString.matches(""))
             toastMessage("Your age cannot be empty!");
         else if (idString.matches(""))
             toastMessage("Your student ID cannot be empty!");
+        else if (idInt < 100000)
+            toastMessage("Your student ID must be 6 characters!");
         else if (age < minAge || age > maxAge)
             toastMessage("You must be 18 to use this app!");
         else {

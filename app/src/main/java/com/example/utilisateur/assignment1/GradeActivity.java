@@ -92,7 +92,7 @@ public class GradeActivity extends AppCompatActivity {
         for (int i = 0; i < number; i++) {
             ArrayList<Assignment> assignments = courses.get(i).getAssignments();
             String rowString = "Course Title: " + courses.get(i).getCourseTitle() + "\n" +
-                         "Assignments: \n" +
+                         "\nAssignments: \n" +
                          generateAssignments(assignments) +
                          calculateAverage(assignments);
             coursesInfo.add(rowString); // Adding everything in a String ArrayList
