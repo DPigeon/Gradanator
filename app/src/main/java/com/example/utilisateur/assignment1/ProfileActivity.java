@@ -24,14 +24,14 @@ public class ProfileActivity extends AppCompatActivity {
     protected SharedPreferenceHelper sharedPreferenceHelper;
     protected EditText nameEditText, ageEditText, stIdEditText;
     protected Button saveButton;
-    int maxLengthName = 15, maxLengthAge = 2, maxLengthId = 6, minAge = 18, maxAge = 99;
+    int maxLengthName = 15, maxLengthAge = 2, maxLengthId = 6, minAge = 18, maxAge = 99; // For validation
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        sharedPreferenceHelper = new SharedPreferenceHelper(ProfileActivity.this);
+        sharedPreferenceHelper = new SharedPreferenceHelper(ProfileActivity.this); // Instantiate the shared preferences for the profile activity
 
         setupUI();
     }
@@ -52,12 +52,13 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuId = item.getItemId();
         if(menuId == R.id.action_settings) { // If we click on the ... button
-            switchMode(true, View.VISIBLE); // Enable
+            switchMode(true, View.VISIBLE); // Switch to edit mode
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void setupUI() { // We setup all buttons and textEdits
+        // Also setting up the maximum length of each textEdit field
         nameEditText = findViewById(R.id.nameEditText);
         InputFilter[] FilterArrayName = new InputFilter[1];
         FilterArrayName[0] = new InputFilter.LengthFilter(maxLengthName);
@@ -111,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
         String idString = stIdEditText.getText().toString();
 
         int age = 0, id = 0;
-        try {
+        try { // We catch the errors if integers are null
             age = Integer.parseInt(ageEditText.getText().toString());
             id = Integer.parseInt(stIdEditText.getText().toString());
         } catch(NumberFormatException ex) {
@@ -120,9 +121,9 @@ public class ProfileActivity extends AppCompatActivity {
         validateAndSave(name, ageString, idString, age, id);
     }
 
-    protected void validateAndSave(String name, String ageString, String idString, int age, int id) { // Validates input and saves
+    protected void validateAndSave(String name, String ageString, String idString, int age, int id) { // Validates input and saves to the sharedPreferences
         int idInt = 0;
-        try {
+        try { // We catch the errors if integers are null
             idInt = Integer.parseInt(idString);
         } catch(NumberFormatException ex) {
         }
@@ -132,8 +133,8 @@ public class ProfileActivity extends AppCompatActivity {
             toastMessage("Your age cannot be empty!");
         else if (idString.matches(""))
             toastMessage("Your student ID cannot be empty!");
-        else if (idInt < 100000)
-            toastMessage("Your student ID must be 6 characters!");
+        else if (idInt < 1) // Maximum 6 digits and minimum number is 1
+            toastMessage("Your student ID must be greater than 0!");
         else if (age < minAge || age > maxAge)
             toastMessage("You must be 18 to use this app!");
         else {
@@ -143,7 +144,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    protected void toastMessage(String message) {
+    protected void toastMessage(String message) { // Shows a toast message
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG); // Current pointer to the add, the string and the length if stays on
         toast.show(); // We display it
     }

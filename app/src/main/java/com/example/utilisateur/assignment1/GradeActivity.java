@@ -27,8 +27,8 @@ public class GradeActivity extends AppCompatActivity {
     ArrayAdapter adapter;
     Random rnd;
     int number; // random number
-    int numberOfRandomCourses = 5;
-    boolean convertMode;
+    int numberOfRandomCourses = 5; // max number of ramdom courses
+    boolean convertMode; // toggle variable for the letter & number mode
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class GradeActivity extends AppCompatActivity {
             convertMode = !convertMode; // Toggling the mode
 
             coursesInfo.clear(); // Delete all the string courses
-            displayCourses(); // Display then again
+            displayCourses(); // Display them again
             adapter.notifyDataSetChanged(); // Refresh the list adapter
         }
         return super.onOptionsItemSelected(item);
@@ -95,11 +95,11 @@ public class GradeActivity extends AppCompatActivity {
                          "\nAssignments: \n" +
                          generateAssignments(assignments) +
                          calculateAverage(assignments);
-            coursesInfo.add(rowString); // Adding everything in a String ArrayList
+            coursesInfo.add(rowString); // Adding all strings in a String ArrayList
         }
     }
 
-    protected String generateAssignments(ArrayList<Assignment> assignments) {
+    protected String generateAssignments(ArrayList<Assignment> assignments) { // Generates a string for the assignment
         String info = "";
         for (int i = 0; i < assignments.size(); i++) {
             String title = assignments.get(i).getAssignmentTitle();
@@ -118,13 +118,13 @@ public class GradeActivity extends AppCompatActivity {
 
         if (assignments.size() != 0) { // Avoiding division by 0
             avg = total / assignments.size();
-            return "\nAverage: " + displayGrade(Double.toString(avg));
+            return "\nAverage: " + displayGrade(Double.toString(avg)); // If we have a grade
         } else
-            return "\nAverage: NaN";
+            return "\nAverage: NaN"; // If we don't have a grade
     }
 
     protected String displayGrade(String grade) {
-        double doubleGrade = Double.valueOf(grade);
+        double doubleGrade = Double.valueOf(grade); // Convert to double
         String convert = "";
         if (convertMode)
             convert = convertGrade(doubleGrade);
@@ -133,7 +133,7 @@ public class GradeActivity extends AppCompatActivity {
         return convert; // If no grade
     }
 
-    protected String convertGrade(double grade) {
+    protected String convertGrade(double grade) { // Converts grades based on the Concordia grades
         if (grade >= 90 && grade <= 100)
             return "A+";
         else if (grade >= 85 && grade <= 89)

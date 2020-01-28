@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
             profileButton.setText(profileName); // Otherwise just set the stored name
     }
 
-    protected void setupAction() {
+    protected void setupAction() { // No action bar for the main activity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
-    void setupUI() {
+    void setupUI() { // Sets all UI buttons
         setupAction();
 
         profileButton = findViewById(R.id.profileButton);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void goToActivity(Class page) {
+    void goToActivity(Class page) { // Function that goes from the main activity to another one
         Intent intent = new Intent(MainActivity.this, page); // from the main activity to the profile class
         startActivity(intent);
     }

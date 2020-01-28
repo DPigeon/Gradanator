@@ -13,11 +13,6 @@ public class SharedPreferenceHelper {
     private SharedPreferences sharedPreferences;
 
     public SharedPreferenceHelper(Context context) { // Constructor
-        // For debugging
-        /*SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();*/
-
         sharedPreferences = context.getSharedPreferences("ProfilePreference", Context.MODE_PRIVATE);
     }
 
@@ -30,7 +25,7 @@ public class SharedPreferenceHelper {
         editor.apply(); // Using apply instead of commit now
     }
 
-    public Profile getProfile() { // Getter for profile
+    public Profile getProfile() { // Getter for profile with different keys
         String name = sharedPreferences.getString("ProfileName", null);
         int age = sharedPreferences.getInt("ProfileAge", 0);
         int id = sharedPreferences.getInt("ProfileId", 0);

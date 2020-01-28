@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /*
  * Created by David
  * Profile Class
- * A controller in the MVC structure
+ * A model in the MVC structure
  */
 
 public class Profile {
@@ -19,6 +19,7 @@ public class Profile {
         this.id = i;
     }
 
+    /* Getters and Setters */
     public void setName(String n) {
         this.name = n;
     }
