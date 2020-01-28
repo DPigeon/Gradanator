@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,12 +53,6 @@ public class ProfileActivity extends AppCompatActivity {
         int menuId = item.getItemId();
         if(menuId == R.id.action_settings) { // If we click on the ... button
             switchMode(true, View.VISIBLE); // Enable
-            saveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    readInputs();
-                }
-            });
         }
         return super.onOptionsItemSelected(item);
     }
@@ -79,6 +74,12 @@ public class ProfileActivity extends AppCompatActivity {
         stIdEditText.setFilters(FilterArrayId);
 
         saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readInputs();
+            }
+        });
     }
 
     protected void switchMode(boolean enabled, int view) { // Toggle between display mode and edit mode
@@ -89,8 +90,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     protected void setSavedText() {
-        if (sharedPreferenceHelper.getProfile() == null) // Info does not exist
+        if (sharedPreferenceHelper.getProfile().getName() == null) { // Info does not exist
             switchMode(true, View.VISIBLE); // Switch to the edit mode
+        }
         else {
             switchMode(false, View.INVISIBLE); // Switch to display mode
 
@@ -118,8 +120,12 @@ public class ProfileActivity extends AppCompatActivity {
         validateAndSave(name, ageString, idString, age, id);
     }
 
-    protected void validateAndSave(String name, String ageString, String idString, int age, int id) {
-        int idInt = Integer.parseInt(idString);
+    protected void validateAndSave(String name, String ageString, String idString, int age, int id) { // Validates input and saves
+        int idInt = 0;
+        try {
+            idInt = Integer.parseInt(idString);
+        } catch(NumberFormatException ex) {
+        }
         if (name.matches(""))
             toastMessage("Your username cannot be empty!");
         else if (ageString.matches(""))
