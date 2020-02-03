@@ -5,7 +5,7 @@ An android mobile application to view a list of courses with their assignments a
 To compile the project, clone it with
 
 ```
-git clone <gitRepoLink>
+git clone https://github.com/DPigeon/Gradanator
 ```
 
 Then open Android Studio and run a virtual phone emulator.
