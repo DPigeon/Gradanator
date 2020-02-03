@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gradanator: Assignment 1</string>
+    <string name="app_name">Gradanator</string>
     <string name="action_settings">Edit</string>
     <string name="gradeAction_settings">Convert Grades</string>
 </resources>
